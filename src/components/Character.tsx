@@ -17,7 +17,7 @@ const Character: FC<CharacterProps> = ({ imageUrl, caption }) => {
         src={imageUrl}
         priority={true}
       />
-      <figcaption className="mt-2 text-sm text-center text-gray-500 dark:text-gray-400">
+      <figcaption className="mt-2 text-sm text-center text-gray-500 dark:text-gray-400 truncate ">
         {caption}
       </figcaption>
     </figure>

@@ -2,26 +2,18 @@
 
 import React from "react";
 import Character from "./Character";
-
-interface Character {
-  id: number;
-  name: string;
-  image: string;
-  // Add other properties from your data
-}
+import { CharacterType } from "@/types/character.type";
 
 interface CharacterListProps {
-  data: {
-    results: Character[];
-  };
+  characters: CharacterType[] | null;
 }
 
-const CharacterList: React.FC<CharacterListProps> = ({ data }) => {
+const CharacterList: React.FC<CharacterListProps> = ({ characters }) => {
   return (
     <div>
-      {data && (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
-          {data.results.map((character) => (
+      {characters && (
+        <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-5 gap-4">
+          {characters.map((character) => (
             <div key={character.id + "wrapper"}>
               <Character
                 imageUrl={character.image}
