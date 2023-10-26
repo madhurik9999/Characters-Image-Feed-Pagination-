@@ -20,20 +20,19 @@ export default function Home() {
   );
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${Constant.API}character/?page=${page}`);
-        const responseData = await response.json();
-        setData(responseData);
-        setCharacterList(responseData.results);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
     fetchData();
   }, [page]);
 
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`${Constant.API}character/?page=${page}`);
+      const responseData = await response.json();
+      setData(responseData);
+      setCharacterList(responseData.results);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
   const getCharactersInfo = async (ids: string[]) => {
     try {
       const response = await fetch(
@@ -58,9 +57,17 @@ export default function Home() {
         <div style={{ width: "30%" }}>
           {" "}
           <EpisodeList
+            selectedEpisode={selectedEpisode}
             onChange={(characterIds: string[], episode: EpisodeType) => {
-              getCharactersInfo(characterIds);
-              setSelectedEpisode(episode);
+              if(episode.id!==selectedEpisode?.id){
+                getCharactersInfo(characterIds);
+                setSelectedEpisode(episode);
+              }else{
+                setSelectedEpisode(null);
+                setIsSpecificEpisode(false);
+                fetchData();
+              }
+           
               //setCharacterList()
             }}
           ></EpisodeList>
